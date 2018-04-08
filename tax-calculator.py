@@ -6,12 +6,11 @@ tax_band_3 = 0.45       # Over £150,000 you pay 45% income tax
 
 # National Insurance Contributions ---  between £680/month(£8,160/year) - £3,750/month(£45,000/year) you pay 12% ---- Above £3,750/month(£45,000) you pay 2%
 
-national_insurance_band_1 = 0.00        # Less than £8,160/year you pay 0% National Insurance
-national_insurance_band_2 = 0.12        # Between £8,161/year and £45,000/year you pay 12% National Insurance
-national_insurance_band_3 = 0.02        # Above £45,000/year you pay 2% National Insurance
+national_insurance_band_1 = 0.00        # Less than £8,424/year you pay 0% National Insurance
+national_insurance_band_2 = 0.12        # Between £8,425/year and £46,350/year you pay 12% National Insurance
+national_insurance_band_3 = 0.02        # Above £46,351/year you pay 2% National Insurance
 
-#user_salary = float(input('Please enter your yearly salary to get your tax details and Net take home salary(i.e. 12000): '))
-#loan_choice = int(input('Please enter your Repayment plan number (i.e. 1 or 2) : '))
+
 
 
 def salary_checker():
@@ -45,16 +44,17 @@ user_salary= salary_checker()
 loan_choice = loan_choice_checker()
 
 
-#Student loan repayment plan 1 up to £17,775 per year you pay nothing abobe £17,750 you pay 9%
+#Student loan repayment plan 1 up to £18,330 per year you pay nothing abobe £18,330 you pay 9%
+#Student loan repayment plan 2 up to £25,000 per year you pay nothing abobe £25,00 you pay 9%
 
-student_loan_band_1 = 0.00              # Below £17,775 you pay 0% repayment on your student loan
-student_loan_band_2 = 0.09              # £17,776 and above you pay 9% back on your student loan repayment
+student_loan_band_1 = 0.00              # Below £18,330 you pay 0% repayment on your student loan
+student_loan_band_2 = 0.09              # £18,330 and above you pay 9% back on your student loan repayment on plan 1 and £25,000 and above you pay 9%
 student_payment_threshold = 0
 
 if loan_choice == 1:
-    student_payment_threshold += 17775
+    student_payment_threshold += 18330
 elif loan_choice == 2:
-    student_payment_threshold += 21000
+    student_payment_threshold += 25000
 
 
 
@@ -64,12 +64,12 @@ taxable_salary = user_salary - allowance
 def calculate_NI():
     national_insurance = 0
 
-    if user_salary <= 8160:
+    if user_salary <= 8424:
         national_insurance += national_insurance_band_1 * user_salary
-    elif 8161 <= user_salary <= 45000:
-        national_insurance += (national_insurance_band_2 * (user_salary - 8160))
-    elif user_salary >= 45001:
-        national_insurance += (national_insurance_band_2 * (45000 - 8160)) + ((user_salary - 45000) * national_insurance_band_3)
+    elif 8425 <= user_salary <= 46350:
+        national_insurance += (national_insurance_band_2 * (user_salary - 8424))
+    elif user_salary >= 46351:
+        national_insurance += (national_insurance_band_2 * (46350 - 8424)) + ((user_salary - 46350) * national_insurance_band_3)
     return national_insurance
 
 
@@ -109,8 +109,8 @@ monthly_SL = yearly_SL/12
 
 student_loan_print_statement = ''
 if loan_choice != 3:
-    student_loan_print_statement += ' \n\n\nYearly Student Loan Repayment -->  %.2f    Monthly Student Loan Repayment -->  %.2f' % (yearly_SL,monthly_SL)
+    student_loan_print_statement += '\n\n\nYearly Student Loan Repayment -->  %.2f    Monthly Student Loan Repayment -->  %.2f' % (yearly_SL,monthly_SL)
 
-print("""Your Income details are as follows:\n\n Net Yearly Income -->  %.2f    Net Monthly Income -->  %.2f\n\n\nYearly Income Tax -->  %.2f    Monthly Income Tax -->  %.2f\n\n\n
+print("""Your Income details are as follows:\n\nNet Yearly Income -->  %.2f    Net Monthly Income -->  %.2f\n\n\nYearly Income Tax -->  %.2f    Monthly Income Tax -->  %.2f\n\n\n
 Yearly NI Contributions -->  %.2f    Monthly NI Contributions -->  %.2f
 """ % (net_income_yearly,net_income_monthly,yearly_tax,monthly_tax,yearly_NI,monthly_NI) + student_loan_print_statement)
